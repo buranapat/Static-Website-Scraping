@@ -1,6 +1,6 @@
 # Static-Website-Scraping
 ### Static Web Scraping 
-### from Intermediate Data Engineering 
+### from Intermediate Data Engineering Workshop
 ### by P' Isarapong Eksinchol, PhD (GBDi)
 ---
 ### Scrape company news from SET (The Stock Exchange of Thailand) using `requests` and `BeautifulSoup`.
