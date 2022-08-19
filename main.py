@@ -52,6 +52,8 @@ def get_news(symbol):
         columns=['date','','source','detail','']
     )
     df.to_excel(f'companynews_{symbol}.xlsx')
+    
+################################################
 
 stocks = ['advanc','aot','ptt','scb','true'] # example stocks
 for stock in stocks:
