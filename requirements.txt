@@ -1,4 +1,0 @@
-Python
-requests
-BeautifulSoup
-pandas
