@@ -19,3 +19,5 @@
 
 # Next Step
 Improve this code to scrape financial ratio of each stock to compare between each others in the same sector.
+---
+<h2><div align="center">Thank you (づ￣ 3￣)づ</div></h2>
