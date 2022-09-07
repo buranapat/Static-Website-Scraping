@@ -1,60 +1,48 @@
-def get_news(symbol):
-    import requests
-    from bs4 import BeautifulSoup
+import requests
+from bs4 import BeautifulSoup
 
-    url = f"https://classic.set.or.th/set/companynews.do?symbol={symbol}&language=th&country=TH" 
-    source = requests.get(url).text
+#create list of sector
+sectors = ['AGRI','FOOD','FASHION','HOME','PERSON','BANK','FIN','INSUR','AUTO','IMM','PAPER'
+          ,'PETRO','PKG','STEEL','CONMAT','PROP','PF%26REIT'
+          ,'CONS','ENERG','MINE','COMM','HELTH','MEDIA','PROF','TOURISM','TRANS','ETRON','ICT']
 
-    soup = BeautifulSoup(source,'lxml')
+#create dictionary to store list of stock's name
+stock_in_sector = {}
 
-    maincontent = soup.find(
-        "div",
-        id = "maincontent"
-    )
+#input sector's abbreviation
+sector = input("which sector (Ex. ICT, FASHION) :").upper()
 
-    div_row = maincontent.find(
-        "div",
-         class_="row"
-    )
-
-    body = div_row.findChildren(
-        "div",
-        class_ = "table-responsive",
-        recursive = False
-    )[-1].find(
-          "table",
-           class_ = "table table-hover table-info-wrap"
-    ).findChildren(
-          "tbody",
-          recursive = False
-    )[0] 
-
-    rows = body.findChildren(
-          "tr",
-          recursive = False
-    )
-
-    lsls=[]
-    for row in rows:
-        cells=row.findChildren(
-              "td",
-               recursive = False
-        )
-        ls =[]
-
-        for cell in cells:
-            ls += [cell.text.replace('\n','').replace('\r','').strip()]
-        lsls += [ls]
-
-    import pandas as pd
-    df = pd.DataFrame(
-          lsls,
-        columns=['date','','source','detail','']
-    )
-    df.to_excel(f'companynews_{symbol}.xlsx')
+#have to covert PF&REIT to PF%26REIT to find website
+if sector == 'PF&REIT' :
+    sector = 'PF%26REIT'
+elif sector not in sectors:
+    print("don't have this sector, please try again")
     
-################################################
+#scrape stock's name
+url = f"https://classic.set.or.th/mkt/sectorquotation.do?market=SET&sector={sector}&language=th&country=TH"
+source = requests.get(url).text
+stock_name = []
+soup = BeautifulSoup(source,'lxml')
+stocks = soup.find(
+            'div',
+            id ='maincontent' ).find( 
+            'div',
+            class_ = 'row').findChildren(
+            'div',
+            class_ = 'row',
+            recursive = False)[1].findChildren(
+            'tbody',
+            recursive = True)[1].findChildren(
+            'tr')
+# store each stock name into list named stock_name
+for i in range(len(stocks)):
+    stock_name += [stocks[i].text.replace("\n","").replace("\r","").strip().split()[0]]
 
-stocks = ['advanc','aot','ptt','scb','true'] # example stocks
-for stock in stocks:
-    get_news(stock.upper())
+# convert PF%26REIT back to PF&REIT to make it easier to read
+if sector == 'PF%26REIT' :
+    sector = 'PF&REIT'
+    
+# store stock_name into dictionary named stock_in_sector
+stock_in_sector[sector] = stock_name
+
+print(stock_in_sector)
