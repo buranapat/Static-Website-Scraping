@@ -1,14 +1,21 @@
 # Static-Website-Scraping
-### Static Web Scraping 
-### from Intermediate Data Engineering Workshop
-### by P' Isarapong Eksinchol, PhD (GBDi)
----
-### Scrape company news from SET (The Stock Exchange of Thailand) using `requests` and `BeautifulSoup`.
+### This Project is aim to stocks's name in each sector.
+### This Code is applied from "Intermediate Data Engineering by GBDi Training Code".
 
-## Workflow
+# Requirement
+- requests
+- BeautifulSoup
+- pandas
+
+# Steps to Run
+1. Input sector's name.
+2. Wait for result. (stocks's name in sector)
+
+# Workflow
 1. Import `requests` and `BeautifulSoup` library.
-2. Get `HTML` code from company news webpage and turn in to `txt`
-3. Inspect `HTML` code from that webpage to find the part of the company news
-4. Turn `txt` to `BeautifulSoup` object to distill data and get the company news
-5. Transform company news to `pandas DataFrame` to export in form of Excel
+2. Create list of sector's name to check input.
+3. Scrape all `HTML` and find stocks's name.
+4. print list of the stocks's name.
 
+# Next Step
+Improve this code to scrape financial ratio of each stock to compare between each others in the same sector.
