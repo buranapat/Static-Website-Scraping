@@ -1,6 +1,6 @@
 # Static-Website-Scraping
-### This Project is aim to stocks's name in each sector.
-### This Code is applied from "Intermediate Data Engineering by GBDi Training Code".
+### This Project aims to stocks's name in each sector.
+### This Code was applied from "Intermediate Data Engineering by GBDi Training Code".
 
 # Requirement
 - requests
